@@ -1,51 +1,54 @@
-import { useState, useEffect } from 'react';
-import axios from 'axios';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { AuthProvider } from './context/AuthContext';
+import Navbar from './components/Navbar';
+import Home from './pages/Home';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import PatientDashboard from './pages/PatientDashboard';
+import HospitalDashboard from './pages/HospitalDashboard';
+import GovernmentDashboard from './pages/GovernmentDashboard';
 import './index.css';
 
+// Protected Route Component (Simple version)
+const ProtectedRoute = ({ children }) => {
+    const user = JSON.parse(localStorage.getItem('userInfo'));
+    if (!user) {
+        return <Navigate to="/login" replace />;
+    }
+    return children;
+};
+
 function App() {
-  const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    // Note: Ensure your backend is running on port 5000
-    axios.get('http://localhost:5000/api/health')
-      .then(response => {
-        setData(response.data);
-        setLoading(false);
-      })
-      .catch(error => {
-        console.error("Error fetching data:", error);
-        setLoading(false);
-      });
-  }, []);
-
   return (
-    <div className="app-container">
-      <div className="glass-card">
-        <h1 className="title">MERN Stack Initialized</h1>
-        <p className="subtitle">Premium Development Environment</p>
-        
-        <div className="status-box">
-          <h2>Backend Status</h2>
-          {loading ? (
-            <div className="loader"></div>
-          ) : data ? (
-            <div className="success-message">
-              <span className="dot"></span>
-              {data.message}
-            </div>
-          ) : (
-            <div className="error-message">
-              Backend disconnected. Check console.
-            </div>
-          )}
+    <Router>
+      <AuthProvider>
+        <div className="app-main font-sans selection:bg-blue-100 selection:text-blue-900">
+          <Navbar />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            
+            {/* Protected Routes */}
+            <Route path="/dashboard" element={
+                <ProtectedRoute>
+                    <PatientDashboard />
+                </ProtectedRoute>
+            } />
+            <Route path="/hospital-dashboard" element={
+                <ProtectedRoute>
+                    <HospitalDashboard />
+                </ProtectedRoute>
+            } />
+            <Route path="/government-dashboard" element={
+                <ProtectedRoute>
+                    <GovernmentDashboard />
+                </ProtectedRoute>
+             } />
+          </Routes>
         </div>
-
-        <button className="cta-button">
-          Get Started
-        </button>
-      </div>
-    </div>
+      </AuthProvider>
+    </Router>
   );
 }
 
