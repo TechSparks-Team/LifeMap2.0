@@ -20,6 +20,7 @@ const Login = () => {
             const userData = await login(email, password);
              if (userData.role === 'hospital') navigate('/hospital-dashboard');
              else if (userData.role === 'government') navigate('/government-dashboard');
+             else if (userData.role === 'doctor') navigate('/doctor-dashboard');
              else navigate('/dashboard');
         } catch (err) {
             setError(err);

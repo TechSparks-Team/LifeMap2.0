@@ -34,6 +34,16 @@ const hospital = (req, res, next) => {
     }
 };
 
+const medicalStaff = (req, res, next) => {
+    // Allows both hospitals and doctors (Hospital for oversight, Doctor for creation)
+    if (req.user && (req.user.role === 'hospital' || req.user.role === 'doctor')) {
+        next();
+    } else {
+        res.status(401);
+        throw new Error('Not authorized as medical staff');
+    }
+};
+
 const government = (req, res, next) => {
     if (req.user && req.user.role === 'government') {
         next();
@@ -43,4 +53,4 @@ const government = (req, res, next) => {
     }
 };
 
-export { protect, hospital, government };
+export { protect, hospital, medicalStaff, government };

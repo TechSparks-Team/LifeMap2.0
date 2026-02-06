@@ -17,12 +17,12 @@ const userSchema = new mongoose.Schema({
     },
     role: {
         type: String,
-        enum: ['patient', 'hospital', 'government'],
+        enum: ['patient', 'hospital', 'government', 'doctor'],
         required: true,
         default: 'patient'
     },
     additionalDetails: {
-        type: Object, // Can store address, hospital license #, region for gov, etc.
+        type: Object,
         default: {}
     }
 }, {

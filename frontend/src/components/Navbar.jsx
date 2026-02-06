@@ -38,6 +38,11 @@ const Navbar = () => {
                                         <ShieldCheck className="w-4 h-4" /> Gov Registry
                                     </Link>
                                 )}
+                                {user.role === 'doctor' && (
+                                    <Link to="/doctor-dashboard" className="flex items-center gap-1.5 text-gray-600 hover:text-blue-600 font-medium transition-colors">
+                                        <User className="w-4 h-4" /> Doctor Portal
+                                    </Link>
+                                )}
                                 <div className="h-6 w-px bg-gray-200 mx-2" />
                                 <div className="flex items-center gap-3">
                                     <div className="flex flex-col items-end">

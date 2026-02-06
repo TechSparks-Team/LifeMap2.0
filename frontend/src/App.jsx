@@ -7,6 +7,7 @@ import Register from './pages/Register';
 import PatientDashboard from './pages/PatientDashboard';
 import HospitalDashboard from './pages/HospitalDashboard';
 import GovernmentDashboard from './pages/GovernmentDashboard';
+import DoctorDashboard from './pages/DoctorDashboard';
 import './index.css';
 
 // Protected Route Component (Simple version)
@@ -38,6 +39,11 @@ function App() {
             <Route path="/hospital-dashboard" element={
                 <ProtectedRoute>
                     <HospitalDashboard />
+                </ProtectedRoute>
+            } />
+            <Route path="/doctor-dashboard" element={
+                <ProtectedRoute>
+                    <DoctorDashboard />
                 </ProtectedRoute>
             } />
             <Route path="/government-dashboard" element={

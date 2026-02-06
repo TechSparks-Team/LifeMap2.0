@@ -76,7 +76,7 @@ const Home = () => {
                     <p className="text-gray-500 max-w-2xl mx-auto text-lg italic italic">Designed to meet the rigorous demands of modern healthcare infrastructure.</p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                     <FeatureCard 
                         icon={<HeartPulse className="w-8 h-8 text-rose-500" />}
                         title="For Patients"
@@ -87,9 +87,16 @@ const Home = () => {
                     <FeatureCard 
                         icon={<Database className="w-8 h-8 text-blue-500" />}
                         title="For Hospitals"
-                        description="Eradicate information silos. Streamline diagnoses and prescriptions with instant access to verified patient data."
-                        benefits={["Digital prescriptions", "Integrated analytics", "Workflow optimization"]}
+                        description="Eradicate information silos. Streamline facility management and doctor oversight through a unified hospital-centric hub."
+                        benefits={["Staff management", "Infrastructure insights", "Global connectivity"]}
                         color="blue"
+                    />
+                    <FeatureCard 
+                        icon={<Users className="w-8 h-8 text-indigo-500" />}
+                        title="For Doctors"
+                        description="Focus on care, not paperwork. Access cloud-synced patient files and synchronize diagnostic data in real-time."
+                        benefits={["Cloud diagnosis", "Staff dashboard", "Sync patient history"]}
+                        color="indigo"
                     />
                     <FeatureCard 
                         icon={<Shield className="w-8 h-8 text-emerald-500" />}
@@ -138,7 +145,8 @@ const FeatureCard = ({ icon, title, description, benefits, color }) => {
     const colorMap = {
         rose: 'bg-rose-50 text-rose-500',
         blue: 'bg-blue-50 text-blue-500',
-        emerald: 'bg-emerald-50 text-emerald-500'
+        emerald: 'bg-emerald-50 text-emerald-500',
+        indigo: 'bg-indigo-50 text-indigo-500'
     };
 
     return (

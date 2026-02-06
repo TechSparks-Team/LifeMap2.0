@@ -3,13 +3,17 @@ import mongoose from 'mongoose';
 const recordSchema = new mongoose.Schema({
     patientId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
+        ref: 'User', // Linking to User ID for auth simplicity
         required: true,
     },
     hospitalId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User', // The doctor/hospital creating the record
+        ref: 'Hospital', // Links to the Hospital profile
         required: true,
+    },
+    doctorId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Doctor', // Links to the Doctor profile if applicable
     },
     diagnosis: {
         type: String,
