@@ -1,4 +1,5 @@
 import { useState, useEffect, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import AuthContext from '../context/AuthContext';
 import { 
@@ -10,6 +11,12 @@ import { motion } from 'framer-motion';
 
 const GovernmentDashboard = () => {
     const { user, logout } = useContext(AuthContext);
+    const navigate = useNavigate();
+    
+    const handleLogout = () => {
+        logout();
+        navigate('/');
+    };
     const [records, setRecords] = useState([]);
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
@@ -148,7 +155,7 @@ const GovernmentDashboard = () => {
                 </div>
 
                 <div className="mt-8 flex justify-end">
-                    <button onClick={logout} className="flex items-center gap-2 px-6 py-3 bg-white border border-gray-200 text-red-500 rounded-2xl font-bold hover:bg-red-50 transition-all font-sans uppercase">
+                    <button onClick={handleLogout} className="flex items-center gap-2 px-6 py-3 bg-white border border-gray-200 text-red-500 rounded-2xl font-bold hover:bg-red-50 transition-all font-sans uppercase">
                         <ArrowUpRight className="rotate-90 w-4 h-4" /> End Oversight Session
                     </button>
                 </div>

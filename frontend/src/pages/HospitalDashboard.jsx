@@ -1,4 +1,5 @@
 import { useState, useEffect, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import AuthContext from '../context/AuthContext';
 import { 
@@ -12,6 +13,12 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 const HospitalDashboard = () => {
     const { user, logout } = useContext(AuthContext);
+    const navigate = useNavigate();
+    
+    const handleLogout = () => {
+        logout();
+        navigate('/');
+    };
     const [records, setRecords] = useState([]);
     const [activeTab, setActiveTab] = useState('overview'); // overview, history, doctors, profile
     const [fetching, setFetching] = useState(true);
@@ -167,7 +174,7 @@ const HospitalDashboard = () => {
                 </nav>
 
                 <div className="p-6 border-t border-slate-800">
-                    <button onClick={logout} className="w-full flex items-center justify-between px-4 py-3 text-sm font-bold text-slate-400 hover:text-white hover:bg-slate-800 rounded-xl transition-all">
+                    <button onClick={handleLogout} className="w-full flex items-center justify-between px-4 py-3 text-sm font-bold text-slate-400 hover:text-white hover:bg-slate-800 rounded-xl transition-all">
                         Sign Out Terminal <ArrowUpRight className="w-4 h-4 rotate-90" />
                     </button>
                 </div>

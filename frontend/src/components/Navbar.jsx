@@ -1,10 +1,16 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import AuthContext from '../context/AuthContext';
 import { LogOut, LayoutDashboard, User, Activity, ShieldCheck, HeartPulse } from 'lucide-react';
 
 const Navbar = () => {
     const { user, logout } = useContext(AuthContext);
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+        logout();
+        navigate('/');
+    };
 
     return (
         <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-200">
@@ -50,7 +56,7 @@ const Navbar = () => {
                                         <span className="text-[10px] uppercase font-bold text-gray-400 leading-none">{user.role}</span>
                                     </div>
                                     <button 
-                                        onClick={logout} 
+                                        onClick={handleLogout} 
                                         className="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-full transition-all"
                                         title="Logout"
                                     >

@@ -1,4 +1,5 @@
 import { useState, useEffect, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import AuthContext from '../context/AuthContext';
 import { 
@@ -10,6 +11,12 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 const DoctorDashboard = () => {
     const { user, logout } = useContext(AuthContext);
+    const navigate = useNavigate();
+    
+    const handleLogout = () => {
+        logout();
+        navigate('/');
+    };
     const [records, setRecords] = useState([]);
     const [activeTab, setActiveTab] = useState('overview');
 
@@ -114,7 +121,7 @@ const DoctorDashboard = () => {
                         <div className="text-sm font-bold truncate">{user.name}</div>
                         <div className="text-[10px] font-medium text-slate-500 truncate mt-1">{user.email}</div>
                     </div>
-                    <button onClick={logout} className="w-full flex items-center justify-center gap-3 py-4 text-xs font-black uppercase tracking-widest text-rose-500 hover:bg-rose-50 rounded-2xl transition-all border border-transparent hover:border-rose-100">
+                    <button onClick={handleLogout} className="w-full flex items-center justify-center gap-3 py-4 text-xs font-black uppercase tracking-widest text-rose-500 hover:bg-rose-50 rounded-2xl transition-all border border-transparent hover:border-rose-100">
                         Terminate Session <ArrowUpRight className="rotate-90 w-4 h-4" />
                     </button>
                 </div>

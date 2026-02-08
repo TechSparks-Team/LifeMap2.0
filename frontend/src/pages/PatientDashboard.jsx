@@ -1,15 +1,17 @@
 import { useState, useEffect, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import AuthContext from '../context/AuthContext';
 import { 
     Heart, ShieldCheck, Activity, Calendar, MapPin, 
     ChevronRight, ArrowUpRight, Loader2, ClipboardList,
-    Stethoscope, Pill
+    Stethoscope, Pill, Search
 } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const PatientDashboard = () => {
     const { user, logout } = useContext(AuthContext);
+    const navigate = useNavigate();
     const [records, setRecords] = useState([]);
     const [loading, setLoading] = useState(true);
     const [activeTab, setActiveTab] = useState('journey'); // journey, hospitals
@@ -22,6 +24,11 @@ const PatientDashboard = () => {
     const [hSpecialty, setHSpecialty] = useState('');
     const [hOwnership, setHOwnership] = useState('');
     const [searching, setSearching] = useState(false);
+
+    const handleLogout = () => {
+        logout();
+        navigate('/');
+    };
 
     const fetchRecords = async () => {
         try {
@@ -90,7 +97,7 @@ const PatientDashboard = () => {
                         <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Cloud Synced Email</div>
                         <div className="text-xs font-bold text-slate-700 truncate">{user.email}</div>
                     </div>
-                    <button onClick={logout} className="w-full flex items-center justify-center gap-3 py-5 bg-rose-50 text-rose-600 rounded-3xl font-black text-[10px] uppercase tracking-[0.2em] hover:bg-rose-100 transition-all active:scale-95">
+                    <button onClick={handleLogout} className="w-full flex items-center justify-center gap-3 py-5 bg-rose-50 text-rose-600 rounded-3xl font-black text-[10px] uppercase tracking-[0.2em] hover:bg-rose-100 transition-all active:scale-95">
                         Logout Terminal <ArrowUpRight className="rotate-90 w-4 h-4" />
                     </button>
                 </div>
